@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-const VERIFY_TOKEN = "webhook123"; // Ganti ini
+const VERIFY_TOKEN = "webhook123"; // Ganti dengan token kamu
 
 app.get("/", (req, res) => {
   res.send("Webhook WhatsApp Aktif ✅");
@@ -14,7 +14,7 @@ app.get("/webhook", (req, res) => {
   const challenge = req.query["hub.challenge"];
 
   if (mode === "subscribe" && token === VERIFY_TOKEN) {
-    console.log("Webhook diverifikasi");
+    console.log("✅ Webhook diverifikasi oleh Meta");
     res.status(200).send(challenge);
   } else {
     res.sendStatus(403);
@@ -33,8 +33,8 @@ app.post("/webhook", (req, res) => {
       const from = message.from;
       const msgText = message.text?.body;
 
-      console.log("Nomor:", from);
-      console.log("Pesan:", msgText);
+      console.log("📩 Nomor:", from);
+      console.log("💬 Pesan:", msgText);
     }
   }
 
@@ -42,4 +42,4 @@ app.post("/webhook", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server jalan di port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Webhook jalan di port ${PORT}`));
